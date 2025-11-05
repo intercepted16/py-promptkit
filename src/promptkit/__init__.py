@@ -1,7 +1,5 @@
 """PromptKit public interface."""
 
-from promptkit.clients import LLMClient, LLMResponse, ToolSpecification
-from promptkit.config import ModelConfig, PromptDefinition, ToolConfig
 from promptkit.errors import (
     PromptConfigError,
     PromptKitError,
@@ -10,6 +8,8 @@ from promptkit.errors import (
 )
 from promptkit.hooks import HookContext, HookManager, PromptHook
 from promptkit.loader import PromptLoader
+from promptkit.models.clients import LLMClient, LLMResponse, ToolSpecification
+from promptkit.models.config import ModelConfig, PromptDefinition, ToolConfig
 from promptkit.runner import PromptCache, PromptRunner
 
 __all__ = [
