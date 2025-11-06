@@ -17,3 +17,11 @@ class PromptValidationError(PromptKitError):
 
 class PromptProviderError(PromptKitError):
     """Raised when no suitable LLM provider client is available."""
+
+
+class MCPError(PromptKitError):
+    """Raised when an error occurs while interacting with MCP (Model Context Protocol)."""
+
+
+class ModelRequestError(PromptKitError):
+    """Raised when a model request fails."""

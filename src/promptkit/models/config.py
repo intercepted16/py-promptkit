@@ -9,7 +9,7 @@ from pathlib import Path
 from string import Formatter
 from typing import Any, Dict, Mapping, Optional, Sequence, Set, Tuple
 
-from pydantic import BaseModel, Field, ValidationInfo, field_validator
+from pydantic import BaseModel, Field, ValidationInfo, field_validator  # type: ignore lib constraint
 
 from src.promptkit.errors import PromptConfigError, PromptValidationError
 from src.promptkit.models.clients import ToolSpecification
@@ -41,8 +41,8 @@ class ToolConfig(BaseModel):
     description: str = Field(default="Generic external connector.")
     parameters: Dict[str, Any] = Field(default_factory=dict)
 
-    @classmethod
     @field_validator("type")
+    @classmethod
     def _validate_type(cls, value: str) -> str:
         allowed = {"http", "stdio", "sse"}
         cleaned = _clean_string(value, "tool.type").lower()
@@ -52,8 +52,8 @@ class ToolConfig(BaseModel):
             )
         return cleaned
 
-    @classmethod
     @field_validator("url", "name", "description", mode="before")
+    @classmethod
     def _validate_text_fields(cls, value: Any, info: ValidationInfo) -> str:
         field_name = info.field_name or "tool.field"
         cleaned = _clean_string(value, f"tool.{field_name}")
@@ -73,8 +73,8 @@ class ToolConfig(BaseModel):
             )
         return cleaned
 
-    @classmethod
     @field_validator("parameters", mode="before")
+    @classmethod
     def _coerce_parameters(cls, value: Any) -> Dict[str, Any]:
         if value is None:
             return {}
@@ -128,8 +128,8 @@ class ModelConfig(BaseModel):
     schema_path: Optional[str] = Field(default=None)
     tool: Optional[ToolConfig] = Field(default=None)
 
-    @classmethod
     @field_validator("name", "provider", mode="before")
+    @classmethod
     def _sanitize_simple_strings(cls, value: Any, info: ValidationInfo) -> str:
         field_name = info.field_name or "value"
         cleaned = _clean_string(value, field_name)
@@ -140,8 +140,8 @@ class ModelConfig(BaseModel):
                 )
         return cleaned
 
-    @classmethod
     @field_validator("temperature", mode="before")
+    @classmethod
     def _coerce_temperature(cls, value: Any) -> float:
         if value is None:
             return 0.0
@@ -155,16 +155,16 @@ class ModelConfig(BaseModel):
             )
         return temp
 
-    @classmethod
     @field_validator("template", mode="before")
+    @classmethod
     def _ensure_template(cls, value: Any) -> str:
         cleaned = _clean_string(value, "template")
         if cleaned == "":
             raise PromptConfigError("template must not be empty.")
         return cleaned
 
-    @classmethod
     @field_validator("schema_path", mode="before")
+    @classmethod
     def _sanitize_schema_path(cls, value: Any) -> Optional[str]:
         if value is None:
             return None
