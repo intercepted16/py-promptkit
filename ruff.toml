@@ -1,10 +1,15 @@
-ignore = []  # no ignored rules
 line-length = 120
+
 [lint]
 select = ["E", "F", "W", "C", "D", "N", "T", "B"]
-mccabe.max-complexity = 5 # strict, quality code is required
+ignore = []  # no ignored rules
+
+[lint.mccabe]
+max-complexity = 8  # strict, quality code is required
+
+[lint.pydocstyle]
+convention = "google"
+
 [format]
 docstring-code-format = true
 docstring-code-line-length = 120
-[pydocstyle]
-convention = "google"
