@@ -1,5 +1,7 @@
 ## PromptKit
 
+**this project was made by a student participating in Hack Club & Hack club midnight**: https://midnight.hackclub.com & https://hackclub.com
+
 PromptKit is a lightweight, configuration-driven prompt orchestration library that separates prompt definitions from application code. By storing templates, model specifications, and tool configurations in TOML files, PromptKit enables teams to share and version prompt definitions independently while swapping LLM providers through a unified interface.
 
 ### Key Features
