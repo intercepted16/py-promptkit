@@ -11,7 +11,7 @@ from typing import Any
 import requests
 from flask import Flask, Response, request
 
-from src.py_promptkit.litellm.sse_transport import SSETransport
+from py_promptkit.litellm.sse_transport import SSETransport
 
 
 def _find_free_port() -> int:

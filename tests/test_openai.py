@@ -7,9 +7,9 @@ from tests.utils import TEST_RESOURCES_DIR
 
 from dotenv import dotenv_values, find_dotenv
 
-from src.py_promptkit import PromptLoader, PromptRunner
-from src.py_promptkit.litellm import LiteLLMClient
-from src.py_promptkit.utils._logger import logger
+from py_promptkit import PromptLoader, PromptRunner
+from py_promptkit.litellm import LiteLLMClient
+from py_promptkit.utils._logger import logger
 import subprocess
 
 dotenv_filename = ".env.test"

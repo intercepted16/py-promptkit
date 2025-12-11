@@ -44,8 +44,8 @@ template = "Hello {name}, welcome to {product}!"
 Here's a minimal example using a custom echo client:
 
 ```python
-from src.py_promptkit import PromptLoader, PromptRunner
-from src.py_promptkit.models.clients import LLMResponse, ToolSpecification
+from py_promptkit import PromptLoader, PromptRunner
+from py_promptkit.models.clients import LLMResponse, ToolSpecification
 
 
 class EchoClient:
@@ -128,8 +128,8 @@ pip install litellm
 #### Basic LiteLLM Usage
 
 ```python
-from src.py_promptkit import PromptLoader, PromptRunner
-from src.py_promptkit.litellm.core import LiteLLMClient
+from py_promptkit import PromptLoader, PromptRunner
+from py_promptkit.litellm.core import LiteLLMClient
 
 # Load prompts
 loader = PromptLoader("prompts.toml")
@@ -251,8 +251,8 @@ parameters = '{"type": "object", "properties": {"expression": {"type": "string",
 When you run this prompt, the tool specification is automatically passed to the client:
 
 ```python
-from src.py_promptkit import PromptLoader, PromptRunner
-from src.py_promptkit.litellm.core import LiteLLMClient
+from py_promptkit import PromptLoader, PromptRunner
+from py_promptkit.litellm.core import LiteLLMClient
 
 loader = PromptLoader("prompts.toml")
 loader.load()
@@ -282,7 +282,7 @@ with PromptRunner(loader) as runner:
 For MCP tools, you need to initialize MCP clients when creating the `LiteLLMClient`:
 
 ```python
-from src.py_promptkit.litellm.core import LiteLLMClient
+from py_promptkit.litellm.core import LiteLLMClient
 
 # Initialize MCP client connections
 mcp_tools = [
@@ -338,7 +338,7 @@ description = "Search query"
 Implement the `LLMClient` protocol to integrate any LLM provider:
 
 ```python
-from src.py_promptkit.models.clients import LLMClient, LLMResponse, ToolSpecification
+from py_promptkit.models.clients import LLMClient, LLMResponse, ToolSpecification
 from typing import Iterator
 
 
@@ -383,8 +383,8 @@ runner.register_client("my_provider", MyCustomClient())
 Implement `PromptHook` to observe or modify prompt execution:
 
 ```python
-from src.py_promptkit.models.hooks import PromptHook, HookContext
-from src.py_promptkit.models.clients import LLMResponse
+from py_promptkit.models.hooks import PromptHook, HookContext
+from py_promptkit.models.clients import LLMResponse
 
 
 class LoggingHook(PromptHook):
@@ -557,7 +557,7 @@ template = "{text}"
 Register multiple clients:
 
 ```python
-from src.py_promptkit.litellm.core import LiteLLMClient
+from py_promptkit.litellm.core import LiteLLMClient
 
 openai_secrets = {"OPENAI_API_KEY": "sk-..."}
 anthropic_secrets = {"ANTHROPIC_API_KEY": "sk-ant-..."}
@@ -631,7 +631,7 @@ class HookContext:
 PromptKit defines specific exception types for different failure modes:
 
 ```python
-from src.py_promptkit.errors import (
+from py_promptkit.errors import (
     PromptKitError,  # Base exception
     PromptConfigError,  # Configuration/TOML parsing errors
     PromptValidationError,  # Variable validation errors

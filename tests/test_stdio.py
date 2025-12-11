@@ -4,7 +4,7 @@ import os
 
 import pytest
 
-from src.py_promptkit.litellm.mcp_client import MCPClient, StdIOTransport
+from py_promptkit.litellm.mcp_client import MCPClient, StdIOTransport
 
 
 @pytest.fixture
