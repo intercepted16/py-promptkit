@@ -9,7 +9,6 @@ from typing import Any, ClassVar, Iterator, Literal, cast
 import litellm
 import requests
 from litellm.utils import validate_environment as litellm_validate_environment  # type: ignore
-from pydantic import ValidationError
 
 from src.py_promptkit.errors import MCPError, ModelRequestError
 from src.py_promptkit.litellm.mcp_client import MCPClient
@@ -21,7 +20,6 @@ from src.py_promptkit.models.llms import (
     LLMOutput,
     MCPToolConfig,
     Message,
-    StreamChunk,
     StreamingToolCall,
     ToolCall,
     ToolSpec,
@@ -274,7 +272,7 @@ class LiteLLMClient(LLMModel):
         model: str,
         temperature: float,
         tools: list[OpenAITool] | None = None,
-    ) -> Iterator[StreamChunk]:
+    ) -> Iterator[dict[str, Any]]:
         """Make streaming completion request with typed response."""
         params: dict[str, Any] = {
             "model": model,
@@ -287,18 +285,16 @@ class LiteLLMClient(LLMModel):
             params["tool_choice"] = "auto"
 
         try:
-            stream = litellm.completion(**params)  # type: ignore
-            for chunk in stream:
+            stream: list[dict[str, Any]] = litellm.completion(**params)  # type: ignore
+            for chunk in stream:  # type: ignore
                 try:
-                    yield StreamChunk.model_validate(chunk)
-                except ValidationError as e:
+                    yield chunk
+                except ValidationError as e:  # type: ignore
                     logger.warning(f"Invalid stream chunk: {e}")
                     continue
         except Exception as e:
             logger.error(f"Streaming request failed: {e}")
             raise ModelRequestError(f"Streaming request failed: {e}") from e
-
-    # --- Utilities ---
 
     @staticmethod
     def _to_dict(obj: Any) -> dict[str, Any]:
